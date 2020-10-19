@@ -9,26 +9,6 @@ class Counter extends Component {
         counter: 0
     }
 
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-            default:
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-        }
-    }
-
     render () {
         return (
             <div>
@@ -37,19 +17,30 @@ class Counter extends Component {
                 <CounterControl label="Decrement" clicked={this.props.decrementCounter} />
                 <CounterControl label="Add 5" clicked={this.props.addToCounter} />
                 <CounterControl label="Subtract 5" clicked={this.props.subtractFromCounter} />
+                <br />
+                <button onClick={this.props.addResult}>Add To Results</button>
+                <ul>
+                    {this.props.results.map( item => (
+                        <li 
+                            key={item.id}
+                            onClick={() => this.props.deleteResult(item.id)}>{item.data}</li>
+                    ))}
+                </ul>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({ctr : state.counter})
+const mapStateToProps = state => ({ctr : state.counter, results: state.results})
 
 const mapDispatchToProps = dispatch => {
     return {
         incrementCounter : () => dispatch({type: 'INCREMENT'}),
         decrementCounter : () => dispatch({type: 'DECREMENT'}),
         addToCounter : () => dispatch({type: 'ADD', amount: 5}),
-        subtractFromCounter : () => dispatch({type: 'SUBTRACT', amount: 5})
+        subtractFromCounter : () => dispatch({type: 'SUBTRACT', amount: 5}),
+        addResult : () => dispatch({type: 'ADD_RESULT'}),
+        deleteResult: (id) => dispatch({type: 'DELETE_RESULT', id: id})
     }
 }
 
