@@ -13,3 +13,12 @@ export const add = (amount) => ({type: 'ADD', amount: amount})
 export const subtract = (amount) => ({type: 'SUBTRACT', amount: amount})
 export const addResult = (number) => ({type: 'ADD_RESULT', number: number})
 export const deleteResult = (id) => ({type: 'DELETE_RESULT', id: id})
+
+//Asyncronous thunks
+export const addResultAsync = (number) => {
+    return dispatch => {
+        setTimeout(()=>{
+            dispatch(addResult(number))
+        },1000)
+    }
+}

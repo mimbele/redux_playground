@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => {
         decrementCounter : () => dispatch(actions.decrement()),
         addToCounter : () => dispatch(actions.add(5)),
         subtractFromCounter : () => dispatch(actions.subtract(5)),
-        addResult : (number) => dispatch(actions.addResult(number)),
+        addResult : (number) => dispatch(actions.addResultAsync(number)),
         deleteResult: (id) => dispatch(actions.deleteResult(id))
     }
 }
